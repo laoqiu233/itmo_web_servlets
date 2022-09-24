@@ -3,8 +3,10 @@ package io.dmtri;
 import java.io.IOException;
 import java.util.Base64;
 
+import io.dmtri.areas.AndArea;
 import io.dmtri.areas.Area;
 import io.dmtri.areas.CircleArea;
+import io.dmtri.areas.NotArea;
 import io.dmtri.areas.OrArea;
 import io.dmtri.areas.QuadrantArea;
 import io.dmtri.areas.RectangleArea;
@@ -19,13 +21,17 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = "/", loadOnStartup = 0)
 public class ControllerServlet extends HttpServlet {
     private static final long serialVersionUID = 5808170032936139555L;
-    private static final int BITMAP_RESOLUTION = 500;
+    private static final int BITMAP_RESOLUTION = 300;
     //private static final Area checker = new TranslatedArea(0.5, 0, new CircleArea(0.5));
     //private static final Area checker = new RectangleArea(1, 1);
-    private static final Area checker = new OrArea(
-        new TranslatedArea(0.5, 0.5, new RectangleArea(1, 1)),
-        new QuadrantArea(QuadrantArea.LOWER_LEFT, new CircleArea(0.5)),
-        new QuadrantArea(QuadrantArea.LOWER_RIGHT, new RotatedArea(Math.PI / 4, new RectangleArea(Math.sqrt(2), Math.sqrt(2))))
+    // private static final Area checker = new OrArea(
+    //     new TranslatedArea(0.5, 0.5, new RectangleArea(1, 1)),
+    //     new QuadrantArea(QuadrantArea.LOWER_LEFT, new CircleArea(0.5)),
+    //     new QuadrantArea(QuadrantArea.LOWER_RIGHT, new RotatedArea(Math.PI / 4, new RectangleArea(Math.sqrt(2), Math.sqrt(2))))
+    // );
+    private static final Area checker = new AndArea(
+        new RotatedArea(Math.PI * -10 / 180, new RectangleArea(2, 2)),
+        new NotArea(new RotatedArea(Math.PI * -10 / 180, new RectangleArea(0.3, 0.3)))
     );
     private static final boolean[][] bitmap = checker.generateBitmap(BITMAP_RESOLUTION);
     private String bitmapB64;
