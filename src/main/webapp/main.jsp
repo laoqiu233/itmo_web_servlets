@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
+    <script src="<%= request.getContextPath() %>/static/js/graph.js" defer></script>
     <title>WEBLAB#2</title>
 </head>
 <body>
@@ -15,8 +16,9 @@
     </header>
     <div class='main'>
         <div class="panel" style="text-align: center;">
-            <canvas width="300" height="300"> 
-                <img src="graph.png"/>
+            <img src="<%= request.getContextPath() %>/static/img/zxc-cursed.gif" id="loading-gif" width="300" height="300">
+            <canvas id="graph-canvas" width="300" height="300"> 
+                <img src="/static/img/graph.png"/>
             </canvas>
         </div>
         <div class="panel" id="form-panel">
