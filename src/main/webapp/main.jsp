@@ -1,4 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="io.dmtri.attemptsmanagers.AttemptsManager" %>
+<%@ page import="io.dmtri.models.PointAttempt" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<% AttemptsManager am = (AttemptsManager) request.getAttribute("attemptsManager"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,10 +27,17 @@
             </canvas>
         </div>
         <div class="panel" id="form-panel">
-            <form id="htmlForm" action="/send_point.php" method="post">    
+            <form id="form" action="" method="get">    
                 <div class="row">
-                    <label htmlFor="select-x">X</label>
-                    <select name="x" id="select-x">
+                        <label for="input-x">X</label>
+                        <div>
+                            <input type="text" name="x" id="input-x" placeholder="0"/>
+                            <p id="input-x-warning" class="warning">fuck</p>
+                        </div>
+                </div>
+                <div class="row">
+                    <label for="select-y">Y</label>
+                    <select name="y" id="select-y">
                         <option value="-2">-2</option>
                         <option value="-1.5">-1.5</option>
                         <option value="-1">-1</option>
@@ -38,41 +50,34 @@
                     </select>
                 </div>
                 <div class="row">
-                    <label htmlFor="input-y">Y</label>
-                    <div>
-                        <input type="text" name="y" id="input-y" placeholder="0"/>
-                        <p id="input-y-warning" class="warning">fuck</p>
-                    </div>
-                </div>
-                <div class="row">
                     <label>R</label>
                     <div>
                         <div>
                             <div class="row">
                                 <input type="radio" name="r" id="r-1" value="1"/>
-                                <label htmlFor="r-1">1</label>
+                                <label for="r-1">1</label>
                             </div>
                             <div class="row">
                                 <input type="radio" name="r" id="r-2" value="2"/>
-                                <label htmlFor="r-2">2</label>
+                                <label for="r-2">2</label>
                             </div>
                             <div class="row">
                                 <input type="radio" name="r" id="r-3" value="3"/>
-                                <label htmlFor="r-3">3</label>
+                                <label for="r-3">3</label>
                             </div>
                             <div class="row">
                                 <input type="radio" name="r" id="r-4" value="4"/>
-                                <label htmlFor="r-4">4</label>
+                                <label for="r-4">4</label>
                             </div>
                             <div class="row">
                                 <input type="radio" name="r" id="r-5" value="5"/>
-                                <label htmlFor="r-5">5</label>
+                                <label for="r-5">5</label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <button id="htmlForm-submit" type="submit" class="row-fill">Send</button>
+                    <button id="form-submit" type="submit" class="row-fill">Send</button>
                 </div>
             </form>
         </div>
@@ -90,6 +95,19 @@
                             <th>Attempt time</th>
                             <th>Processing time</th>
                         </tr>
+                        <c:set var="i" value="1"/>
+                        <c:forEach items="${attemptsManager.getAttempts()}" var="attempt">
+                            <tr>
+                                <td>${i}</td>
+                                <td>${attempt.point().x()}</td>
+                                <td>${attempt.point().y()}</td>
+                                <td>${attempt.point().r()}</td>
+                                <td class="${attempt.success() ? 'theme' : 'warning'}">${ attempt.success() ? 'HIT' : 'MISS' }</td>
+                                <td><%= new Date(((PointAttempt) pageContext.getAttribute("attempt")).attemptTime()) %></td>
+                                <td>${attempt.processTime()} ms</td>
+                                <c:set var="i" value="${i+1}"/>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

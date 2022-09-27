@@ -1,7 +1,12 @@
 package io.dmtri;
 
 import java.io.IOException;
+import java.util.Date;
 
+import io.dmtri.areas.Area;
+import io.dmtri.attemptsmanagers.AttemptsManager;
+import io.dmtri.models.Point;
+import io.dmtri.models.PointAttempt;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,19 +19,33 @@ public class AreaCheckServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        float x, y, r;
+        final long start = System.nanoTime();
+        
+
+        double x, y, r;
 
         try {
-            x = Float.parseFloat(req.getParameter("x"));
-            y = Float.parseFloat(req.getParameter("y"));
-            r = Float.parseFloat(req.getParameter("r"));
+            x = Double.parseDouble(req.getParameter("x"));
+            y = Double.parseDouble(req.getParameter("y"));
+            r = Double.parseDouble(req.getParameter("r"));
         } catch (NullPointerException | NumberFormatException e) {
             resp.sendError(400, "Invalid coordinates\n" + e);
             return;
         }
 
-        resp.getWriter().println("x = " + x);
-        resp.getWriter().println("y = " + y);
-        resp.getWriter().println("r = " + r);
+        final Point point = new Point(x, y, r);
+
+        final AttemptsManager am = (AttemptsManager) req.getAttribute("attemptsManager");
+        final Area checker = (Area) req.getAttribute("checker");
+        final boolean res = checker.checkPoint(point);
+
+        final long end = System.nanoTime();
+
+        final PointAttempt attempt = new PointAttempt(point, System.currentTimeMillis(), (end - start) / 1000d, res);
+        am.addAttempt(attempt);
+        
+        req.setAttribute("lastAttempt", attempt);
+
+        getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
     }
 }
