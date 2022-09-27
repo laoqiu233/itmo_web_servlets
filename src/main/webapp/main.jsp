@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.util.Random" %>
 <%@ page import="io.dmtri.attemptsmanagers.AttemptsManager" %>
 <%@ page import="io.dmtri.models.PointAttempt" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -12,7 +13,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
     <script src="<%= request.getContextPath() %>/static/js/graph.js" defer></script>
+    <script src="<%= request.getContextPath() %>/static/js/validation.js" defer></script>
     <title>WEBLAB#2</title>
+    <script>
+        const POINTS = [
+            <%
+                for (int i=0; i < am.getAttemptsCount(); i++) {
+                    Random r = new Random(i);
+            %>
+                {
+                    x: <%= am.getAttempts().get(i).point().x() %>,
+                    y: <%= am.getAttempts().get(i).point().y() %>,
+                    r: <%= am.getAttempts().get(i).point().r() %>,
+                    color: "rgb(<%= r.nextInt(256) %>,<%= r.nextInt(256) %>,<%= r.nextInt(256) %>)"
+                },
+            <%
+                }
+            %>
+        ]
+    </script>
 </head>
 <body>
     <header>
@@ -32,22 +51,26 @@
                         <label for="input-x">X</label>
                         <div>
                             <input type="text" name="x" id="input-x" placeholder="0"/>
-                            <p id="input-x-warning" class="warning">fuck</p>
+                            <p id="input-x-warning" class="warning" hidden></p>
                         </div>
                 </div>
                 <div class="row">
                     <label for="select-y">Y</label>
-                    <select name="y" id="select-y">
-                        <option value="-2">-2</option>
-                        <option value="-1.5">-1.5</option>
-                        <option value="-1">-1</option>
-                        <option value="-0.5">-0.5</option>
-                        <option value="0">0</option>
-                        <option value="0.5">0.5</option>
-                        <option value="1">1</option>
-                        <option value="1.5">1.5</option>
-                        <option value="2">2</option>
-                    </select>
+                    <div>
+                        <select name="y" id="select-y">
+                            <option id="input-y" value="" hidden></option>
+                            <option value="-2">-2</option>
+                            <option value="-1.5">-1.5</option>
+                            <option value="-1">-1</option>
+                            <option value="-0.5">-0.5</option>
+                            <option value="0">0</option>
+                            <option value="0.5">0.5</option>
+                            <option value="1">1</option>
+                            <option value="1.5">1.5</option>
+                            <option value="2">2</option>
+                        </select>
+                        <p id="input-y-warning" class="warning" hidden></p>
+                    </div>
                 </div>
                 <div class="row">
                     <label>R</label>
@@ -74,6 +97,7 @@
                                 <label for="r-5">5</label>
                             </div>
                         </div>
+                        <p id="input-r-warning" class="warning" hidden></p>
                     </div>
                 </div>
                 <div class="row">

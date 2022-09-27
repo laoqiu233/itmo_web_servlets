@@ -19,6 +19,6 @@ public class TranslatedArea extends AbstractArea {
     @Override
     public boolean checkPoint(Point point) {
         // De-translate the point and pass to next checker
-        return decoratedArea.checkPoint(new Point(point.x() - dx, point.y() - dy, point.r()));
+        return decoratedArea.checkPoint(new Point(point.x() - dx * point.r(), point.y() - dy * point.r(), point.r()));
     }
 }
