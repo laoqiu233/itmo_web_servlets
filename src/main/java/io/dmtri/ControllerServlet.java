@@ -55,7 +55,6 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Share global objects for other servlets
         AttemptsManager am = new SessionAttemptsManager(req.getSession());
-        System.out.println(am.getAttemptsCount());
         req.setAttribute("attemptsManager", am);
         req.setAttribute("checker", checker);
 

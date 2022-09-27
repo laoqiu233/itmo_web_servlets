@@ -3,7 +3,7 @@ package io.dmtri.areas;
 import io.dmtri.models.Point;
 
 /**
- * Translates the underlaying area by dx and dy units.
+ * Translates the underlaying area by dx and dy units (in terms of R).
  */
 public class TranslatedArea extends AbstractArea {
     private final double dx;

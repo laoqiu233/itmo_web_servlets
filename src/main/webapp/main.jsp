@@ -36,7 +36,7 @@
 <body>
     <header>
         <h1><span class="theme">Tsiu</span> T.</h1>
-        <h2>P3132 <span class="gray">Web Lab #1 | Вариант: 3218</span></h2>
+        <h2>P32312 <span class="gray">Web Lab #2 | Вариант: 6663128</span></h2>
     </header>
     <div class='main'>
         <div class="panel" style="text-align: center;">
