@@ -28,13 +28,22 @@ function notNull() {
     return true;
 }
 
-// Generate form
+/**
+ * 
+ * @param {*} data Object containing data about this element
+ * @param {string} id ID of the element that contains actual value.
+ * @param {string} formName The name of this element in the form
+ * @param {string} displayName The name to display this property as.
+ * @returns 
+ */
 function generateFormElement(data, id, formName, displayName) {
+    // Common warning element
     const warningEl = document.createElement('p');
     warningEl.id = `${id}-warning`;
     warningEl.className = 'warning';
     warningEl.hidden = true;
 
+    // A validator object for this form element
     const validator = {
         displayName: displayName,
         setWarning: (text) => {
@@ -67,6 +76,7 @@ function generateFormElement(data, id, formName, displayName) {
         innerDiv.appendChild(warningEl);
         root.appendChild(innerDiv);
 
+        // Add parameters for floatInRange validator
         validator.min = data.min;
         validator.max = data.max;
         validator.getValue = () => input.value;
@@ -81,6 +91,7 @@ function generateFormElement(data, id, formName, displayName) {
         select.name = formName;
         select.id = `${id}-select`;
 
+        // Hidden choice for graph click
         const hiddenChoice = document.createElement('option');
         hiddenChoice.id = id;
         hiddenChoice.value = '';
@@ -108,6 +119,7 @@ function generateFormElement(data, id, formName, displayName) {
 
         const optionsDiv = document.createElement('div');
 
+        // Hidden choice for graph click
         const hiddenOption = document.createElement('input');
         hiddenOption.type = 'radio';
         hiddenOption.name = formName;
@@ -185,6 +197,8 @@ formValidator.validateAll = function() {
 }
 
 document.getElementById('form').addEventListener('change', () => formValidator.validateAll());
+// In case if any of the elements are not change based but input based. (Like text input)
 document.getElementById('input-x').addEventListener('input', () => formValidator.validateAll());
 document.getElementById('input-y').addEventListener('input', () => formValidator.validateAll());
+document.getElementById('input-r').addEventListener('input', () => formValidator.validateAll());
 formValidator.validateAll();

@@ -57,8 +57,8 @@ public class ControllerServlet extends HttpServlet {
     private static final String bitmapB64 = BitmapEncoder.encode(bitmap, BITMAP_RESOLUTION);
     private static final FormManager fm = new FormManager(
         new TextInputElement(-3, 5),
-        new SelectInputElement(-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2),
-        new RadioInputElement(1, 2, 3, 4, 5)
+        new RadioInputElement(-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2),
+        new SelectInputElement(1, 2, 3, 4, 5)
     );
 
     @Override
