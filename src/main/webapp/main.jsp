@@ -31,6 +31,8 @@
                 }
             %>
         ]
+
+        const FORM_DATA = ${ formManager.renderJSON() };
     </script>
 </head>
 <body>
@@ -46,64 +48,7 @@
             </canvas>
         </div>
         <div class="panel" id="form-panel">
-            <form id="form" action="" method="get">    
-                <div class="row">
-                        <label for="input-x">X</label>
-                        <div>
-                            <input type="text" name="x" id="input-x" placeholder="0"/>
-                            <p id="input-x-warning" class="warning" hidden></p>
-                        </div>
-                </div>
-                <div class="row">
-                    <label for="select-y">Y</label>
-                    <div>
-                        <select name="y" id="select-y">
-                            <option id="input-y" value="" hidden></option>
-                            <option value="-2">-2</option>
-                            <option value="-1.5">-1.5</option>
-                            <option value="-1">-1</option>
-                            <option value="-0.5">-0.5</option>
-                            <option value="0">0</option>
-                            <option value="0.5">0.5</option>
-                            <option value="1">1</option>
-                            <option value="1.5">1.5</option>
-                            <option value="2">2</option>
-                        </select>
-                        <p id="input-y-warning" class="warning" hidden></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <label>R</label>
-                    <div>
-                        <div>
-                            <div class="row">
-                                <input type="radio" name="r" id="r-1" value="1"/>
-                                <label for="r-1">1</label>
-                            </div>
-                            <div class="row">
-                                <input type="radio" name="r" id="r-2" value="2"/>
-                                <label for="r-2">2</label>
-                            </div>
-                            <div class="row">
-                                <input type="radio" name="r" id="r-3" value="3"/>
-                                <label for="r-3">3</label>
-                            </div>
-                            <div class="row">
-                                <input type="radio" name="r" id="r-4" value="4"/>
-                                <label for="r-4">4</label>
-                            </div>
-                            <div class="row">
-                                <input type="radio" name="r" id="r-5" value="5"/>
-                                <label for="r-5">5</label>
-                            </div>
-                        </div>
-                        <p id="input-r-warning" class="warning" hidden></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <button id="form-submit" type="submit" class="row-fill">Send</button>
-                </div>
-            </form>
+            <form id="form" action="" method="get"></form>
         </div>
         <div id="results" class="panel">
             <h1>Results</h1>

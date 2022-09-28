@@ -14,6 +14,11 @@ import io.dmtri.areas.RotatedArea;
 import io.dmtri.areas.TranslatedArea;
 import io.dmtri.attemptsmanagers.AttemptsManager;
 import io.dmtri.attemptsmanagers.SessionAttemptsManager;
+import io.dmtri.formmanagers.FormManager;
+import io.dmtri.formmanagers.InputElement;
+import io.dmtri.formmanagers.RadioInputElement;
+import io.dmtri.formmanagers.SelectInputElement;
+import io.dmtri.formmanagers.TextInputElement;
 import io.dmtri.models.Point;
 import io.dmtri.models.PointAttempt;
 import io.dmtri.utils.BitmapEncoder;
@@ -50,13 +55,19 @@ public class ControllerServlet extends HttpServlet {
     );
     private static final boolean[][] bitmap = checker.generateBitmap(BITMAP_RESOLUTION);
     private static final String bitmapB64 = BitmapEncoder.encode(bitmap, BITMAP_RESOLUTION);
+    private static final FormManager fm = new FormManager(
+        new TextInputElement(-3, 5),
+        new SelectInputElement(-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2),
+        new RadioInputElement(1, 2, 3, 4, 5)
+    );
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Share global objects for other servlets
-        AttemptsManager am = new SessionAttemptsManager(req.getSession());
+        // Dependency injection
+        final AttemptsManager am = new SessionAttemptsManager(req.getSession());
         req.setAttribute("attemptsManager", am);
         req.setAttribute("checker", checker);
+        req.setAttribute("formManager", fm);
 
         // Forward request if all parameters are present
         if (req.getParameter("x") != null && req.getParameter("y") != null && req.getParameter("r") != null) {
