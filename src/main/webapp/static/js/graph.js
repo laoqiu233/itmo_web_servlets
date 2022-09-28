@@ -80,7 +80,8 @@ function getR() {
     
     if (form) {
         const formData = new FormData(form);
-        r = formData.get('r') === null ? 0 : parseInt(formData.get('r'));
+        const parsedR = parseFloat(formData.get('r'));
+        r = (isNaN(parsedR) ? 0 : parsedR);
     } else if (POINTS.length > 0) {
         r = POINTS[0].r;
     }
