@@ -84,18 +84,20 @@ public class ControllerServlet extends HttpServlet {
             }
 
             req.setAttribute("attemptToShow", attemptToShow);
-            getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
+            getServletContext().getRequestDispatcher("/WEB-INF/result.jsp").forward(req, resp);
             return;
         }
 
         final String requestedPath = req.getRequestURI().substring(req.getContextPath().length());
         
         if (requestedPath.equals("/")) {
-            getServletContext().getRequestDispatcher("/main.jsp").forward(req, resp);
+            getServletContext().getRequestDispatcher("/WEB-INF/main.jsp").forward(req, resp);
         } else if (requestedPath.equals("/getBitmap")) {
             resp.getWriter().print(bitmapB64);
-        } else {
+        } else if (requestedPath.startsWith("/static")) {
             getServletContext().getNamedDispatcher("default").forward(req, resp);
+        } else {
+            resp.sendError(404, "Not found");
         }
     }
 }
