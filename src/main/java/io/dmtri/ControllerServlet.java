@@ -36,23 +36,23 @@ public class ControllerServlet extends HttpServlet {
     private static final long serialVersionUID = 5808170032936139555L;
     private static final int BITMAP_RESOLUTION = 300;
     // Task graph
-    // private static final Area checker = new OrArea(
-    //     new TranslatedArea(0.5, 0.5, new RectangleArea(1, 1)),
-    //     new QuadrantArea(QuadrantArea.LOWER_LEFT, new CircleArea(0.5)),
-    //     new QuadrantArea(QuadrantArea.LOWER_RIGHT, new RotatedArea(Math.PI / 4, new RectangleArea(Math.sqrt(2), Math.sqrt(2))))
-    // );
+    private static final Area checker = new OrArea(
+        new TranslatedArea(0.5, 0.5, new RectangleArea(1, 1)),
+        new QuadrantArea(QuadrantArea.LOWER_LEFT, new CircleArea(0.5)),
+        new QuadrantArea(QuadrantArea.LOWER_RIGHT, new RotatedArea(Math.PI / 4, new RectangleArea(Math.sqrt(2), Math.sqrt(2))))
+    );
     // Roblox logo graph
     // private static final Area checker = new RotatedArea(Math.PI * -10 / 180, new AndArea(
     //     new RectangleArea(2, 2),
     //     new NotArea(new RectangleArea(0.5, 0.5)) 
     // ));
     // Male genital graph
-    private static final Area checker = new OrArea(
-        new QuadrantArea(QuadrantArea.LOWER_LEFT | QuadrantArea.UPPER_LEFT, new TranslatedArea(-0.3, -0.3, new CircleArea(0.5))),
-        new QuadrantArea(QuadrantArea.LOWER_RIGHT | QuadrantArea.UPPER_RIGHT, new TranslatedArea(0.3, -0.3, new CircleArea(0.5))),
-        new TranslatedArea(0, 0.5, new RectangleArea(0.5, 1)),
-        new TranslatedArea(0, 1, new CircleArea(0.25))
-    );
+    // private static final Area checker = new OrArea(
+    //     new QuadrantArea(QuadrantArea.LOWER_LEFT | QuadrantArea.UPPER_LEFT, new TranslatedArea(-0.3, -0.3, new CircleArea(0.5))),
+    //     new QuadrantArea(QuadrantArea.LOWER_RIGHT | QuadrantArea.UPPER_RIGHT, new TranslatedArea(0.3, -0.3, new CircleArea(0.5))),
+    //     new TranslatedArea(0, 0.5, new RectangleArea(0.5, 1)),
+    //     new TranslatedArea(0, 1, new CircleArea(0.25))
+    // );
     private static final boolean[][] bitmap = checker.generateBitmap(BITMAP_RESOLUTION);
     private static final String bitmapB64 = BitmapEncoder.encode(bitmap, BITMAP_RESOLUTION);
     private static final FormManager fm = new FormManager(

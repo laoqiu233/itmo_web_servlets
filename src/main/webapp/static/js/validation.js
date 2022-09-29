@@ -71,6 +71,7 @@ function generateFormElement(data, id, formName, displayName) {
         input.name = formName;
         input.id = id;
         input.placeholder = `${data.min}...${data.max}`;
+        input.maxLength = 15;
         
         innerDiv.appendChild(input);
         innerDiv.appendChild(warningEl);
