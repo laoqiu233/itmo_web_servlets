@@ -18,4 +18,9 @@ public class TextInputElement extends AbstractInputElement {
     public double getMax() {
         return max;
     }
+
+    @Override
+    public boolean validate(double v) {
+        return v >= min && v <= max;
+    }
 }

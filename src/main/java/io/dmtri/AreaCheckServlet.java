@@ -5,6 +5,7 @@ import java.util.Date;
 
 import io.dmtri.areas.Area;
 import io.dmtri.attemptsmanagers.AttemptsManager;
+import io.dmtri.formmanagers.FormManager;
 import io.dmtri.models.Point;
 import io.dmtri.models.PointAttempt;
 import jakarta.servlet.ServletException;
@@ -20,7 +21,7 @@ public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final long start = System.nanoTime();
-        
+        final FormManager fm = (FormManager) req.getAttribute("formManager");
 
         double x, y, r;
 
@@ -30,6 +31,11 @@ public class AreaCheckServlet extends HttpServlet {
             r = Double.parseDouble(req.getParameter("r"));
         } catch (NullPointerException | NumberFormatException e) {
             resp.sendError(400, "Invalid coordinates\n" + e);
+            return;
+        }
+
+        if (!fm.rInput().validate(r)) {
+            resp.sendError(400, "Invalid R value");
             return;
         }
 
