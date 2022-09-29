@@ -85,6 +85,7 @@ public class ControllerServlet extends HttpServlet {
 
             req.setAttribute("attemptToShow", attemptToShow);
             getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
+            return;
         }
 
         final String requestedPath = req.getRequestURI().substring(req.getContextPath().length());
