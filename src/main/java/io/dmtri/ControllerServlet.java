@@ -75,6 +75,18 @@ public class ControllerServlet extends HttpServlet {
             return;
         }
 
+        if (req.getParameter("show-attempt") != null) {
+            PointAttempt attemptToShow;
+            try {
+                attemptToShow = am.getAttempts().get(Integer.parseInt(req.getParameter("show-attempt")));
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                attemptToShow = null;
+            }
+
+            req.setAttribute("attemptToShow", attemptToShow);
+            getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
+        }
+
         final String requestedPath = req.getRequestURI().substring(req.getContextPath().length());
         
         if (requestedPath.equals("/")) {

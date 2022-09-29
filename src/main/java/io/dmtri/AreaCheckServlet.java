@@ -44,8 +44,6 @@ public class AreaCheckServlet extends HttpServlet {
         final PointAttempt attempt = new PointAttempt(point, System.currentTimeMillis(), (end - start) / 1000d, res);
         am.addAttempt(attempt);
         
-        req.setAttribute("lastAttempt", attempt);
-
-        getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
+        resp.sendRedirect(getServletContext().getContextPath() + "/?show-attempt=" + (am.getAttemptsCount() - 1));
     }
 }

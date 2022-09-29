@@ -14,9 +14,9 @@
     <script>
         const POINTS = [
             {
-                x: ${ lastAttempt.point().x() },
-                y: ${ lastAttempt.point().y() },
-                r: ${ lastAttempt.point().r() },
+                x: ${ attemptToShow.point().x() },
+                y: ${ attemptToShow.point().y() },
+                r: ${ attemptToShow.point().r() },
                 color: '#FFF'
             }
         ];
@@ -37,32 +37,32 @@
         <div class="panel">
             <div class="row">
                 <c:choose>
-                    <c:when test="${ lastAttempt != null }"> 
+                    <c:when test="${ attemptToShow != null }"> 
                         <table>
                             <tbody>
                                 <tr>
                                     <td>X</td>
-                                    <td>${ lastAttempt.point().x() }</td>
+                                    <td>${ attemptToShow.point().x() }</td>
                                 </tr>
                                 <tr>
                                     <td>Y</td>
-                                    <td>${ lastAttempt.point().y() }</td>
+                                    <td>${ attemptToShow.point().y() }</td>
                                 </tr>
                                 <tr>
                                     <td>R</td>
-                                    <td>${ lastAttempt.point().r() }</td>
+                                    <td>${ attemptToShow.point().r() }</td>
                                 </tr>
                                 <tr>
                                     <td>Attempt Time</td>
-                                    <td><%= new Date(((PointAttempt) request.getAttribute("lastAttempt")).attemptTime()) %></td>
+                                    <td><%= new Date(((PointAttempt) request.getAttribute("attemptToShow")).attemptTime()) %></td>
                                 </tr>
                                 <tr>
                                     <td>Process Time</td>
-                                    <td>${ lastAttempt.processTime() } ms</td>
+                                    <td>${ attemptToShow.processTime() } ms</td>
                                 </tr>
                                 <tr>
                                     <td>Result</td>
-                                    <td class="${ lastAttempt.success() ? 'theme' : 'warning' }">${ lastAttempt.success() ? 'HIT' : 'MISS' }</td>
+                                    <td class="${ attemptToShow.success() ? 'theme' : 'warning' }">${ attemptToShow.success() ? 'HIT' : 'MISS' }</td>
                                 </tr>
                             </tbody>
                         </table>
