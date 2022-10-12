@@ -4,6 +4,7 @@
 <%@ page import="io.dmtri.attemptsmanagers.AttemptsManager" %>
 <%@ page import="io.dmtri.models.PointAttempt" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "d" uri = "/WEB-INF/custom.tld" %>
 <% AttemptsManager am = (AttemptsManager) request.getAttribute("attemptsManager"); %>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +47,18 @@
             <canvas id="graph-canvas" width="300" height="300"> 
                 <img src="/static/img/graph.png"/>
             </canvas>
+            <br/>
+            <d:parser input="world">
+                Hello world, hello world!
+            </d:parser>
+            <br/>
+            <d:parser input="hello">
+                Hello world, hello world!
+            </d:parser>
+            <br/>
+            <d:parser input="hello" ignoreCase="true">
+                Hello world, hello world!
+            </d:parser>
         </div>
         <div class="panel" id="form-panel">
             <form id="form" action="" method="get"></form>

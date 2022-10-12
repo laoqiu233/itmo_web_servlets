@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "public-id" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>custom</short-name>
+
+    <tag>
+        <name>parser</name>
+        <tag-class>io.dmtri.tags.ParserTag</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>input</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>ignoreCase</name>
+        </attribute>
+    </tag>
+</taglib>
